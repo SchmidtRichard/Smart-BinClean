@@ -15,9 +15,9 @@ import requests as req         #import requests to be used for webqueries
 
 ultrasonic_ranger = 4
 
-time_to_sleep       = 5       # The main loop runs every 1.5 seconds
+time_to_sleep       = 5       # The main loop runs every 5 seconds
 
-bin_id = 1 
+bin_id = 1 # Put the bin ID here. In the future there may be many bins to monitor
 
 
 while True:
@@ -25,15 +25,13 @@ while True:
 
         # Read distance value from Ultrasonic
         distant = ultrasonicRead(ultrasonic_ranger)
-        resp=req.get("http://IP/data.php?bin_id="+str(bin_id)+"&bin_status="+str(distant))  
-		
+        resp=req.get("http://IP/data.php?bin_id="+str(bin_id)+"&bin_status="+str(distant))  #we will send the raw data directly to the server and then we filter when we display the data.
+		#IP needs to be replaced by the IP used on the server running the application
 		
     except TypeError:
         print("Error")
     except IOError:
         print("Error")
-		
-		
 
     #Slow down the loop
     time.sleep(time_to_sleep)
