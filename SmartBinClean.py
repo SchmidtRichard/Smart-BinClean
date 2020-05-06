@@ -2,58 +2,39 @@
 # BSc (Honours) in Computing - IoT Stream
 # GrovePi + Grove Ultrasonic Ranger + Relay Pin
 
-from grovepi import *
-
 # Connect the Grove Ultrasonic Ranger to digital port D4
 # SIG,NC,VCC,GND
 # Connect the Grove Relay Pin to the digital port D2
 
+#Relay_pin = 2# relay_pin will not be used as it is not necessary for this project
+
+#pinMode(Relay_pin,"OUTPUT")
+
+from grovepi import *
+import requests as req         #import requests to be used for webqueries
+
 ultrasonic_ranger = 4
-Relay_pin = 2#NECESSARIO?
 
-pinMode(Relay_pin,"OUTPUT")
+time_to_sleep       = 5       # The main loop runs every 1.5 seconds
 
-time_to_sleep       = 1       # The main loop runs every 1.5 seconds
+bin_id = 1 
+
 
 while True:
     try:
-        
+
         # Read distance value from Ultrasonic
         distant = ultrasonicRead(ultrasonic_ranger)
-
-        #print('empty')
-        if distant > 30:
-            print('______________________________')
-            print('The bin is empty.')
-            print(distant,'cm available')
-            digitalWrite(Relay_pin,1)
-
-        #print('empty')
-        if distant >= 15 and distant <= 20:
-            print('______________________________')
-            print('The bin is half-full.')
-            print(distant,'cm available')
-            digitalWrite(Relay_pin,1)
-
-        if distant >= 20 and distant < 10:
-            print('______________________________')
-            print('Almost full')
-            print(distant,'cm available')
-            digitalWrite(Relay_pin,1)
-
-        #print('The bin is full. Please collect it as there is only ',distant,'cm available')
-        if distant <= 10:
-            print('______________________________')
-            print('The bin is full. Please collect it as there is only ',distant,'cm available')
-            digitalWrite(Relay_pin,1)
-
-        else:
-            digitalWrite(Relay_pin,0)
-
+        resp=req.get("http://IP/data.php?bin_id="+str(bin_id)+"&bin_status="+str(distant))  
+		
+		
     except TypeError:
         print("Error")
     except IOError:
         print("Error")
+		
+		
 
     #Slow down the loop
     time.sleep(time_to_sleep)
+
