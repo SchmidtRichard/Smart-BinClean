@@ -19,7 +19,7 @@ import time
 size1=[30] 				#Set 30cm size1 for the bin
 size2=[60] 				#Set 60cm size1 for the bin
 
-trash=[] #Create an empty array, where we'll add all the bins with their sizes
+trash=[] #Create an empty array, where we'll add all the bins with their sizes, bin id and port number
 
 #####################################################################################################
 
@@ -90,13 +90,42 @@ def judge(distant,trash_id,size):
 
 #Keeps the code running to get readings
 while True:
-	for i in range(0,len(trash),3): #3 reprezents the step index like i:0,3,6,9,12 as each trash1,2,3,4 array have 3 indexes in each
+	for i in range(0,len(trash),3): #3 represents the step index like i:0,3,6,9,12 as each trash1,2,3,4 array have 3 indexes in each
 		
 		#distant = ultrasonic Read ---> calls a function from grovepi library, which converts the measured signals (sent and received) into readable distance measured in centimeters
 		distant = ultrasonicRead(trash[i+1])
 		
-		#judge ---> calls a function in the python program, that judge if the state of the bin and send the distance measured, bin id, and size of the bin
+		#judge ---> calls a function in the python program, that judges the state of the bins and send the distance measured, bin id, and size of the bin
 		judge(distant,trash[i],trash[i+2])
 		
 		#Slow down the loop
 		time.sleep(3)	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
