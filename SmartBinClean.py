@@ -92,7 +92,8 @@ def judge(distant,trash_id,size):
 while True:
 	for i in range(0,len(trash),3): #3 represents the step index like i:0,3,6,9,12 as each trash1,2,3,4 array have 3 indexes in each
 		
-		#distant = ultrasonic Read ---> calls a function from grovepi library, which converts the measured signals (sent and received) into readable distance measured in centimeters
+		#distant = ultrasonic Read ---> calls a function from grovepi library, 
+		#which converts the measured signals (sent and received) into readable distance measured in centimeters
 		distant = ultrasonicRead(trash[i+1])
 		
 		#judge ---> calls a function in the python program, that judges the state of the bins and send the distance measured, bin id, and size of the bin
@@ -101,31 +102,5 @@ while True:
 		#Slow down the loop
 		time.sleep(3)	
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
