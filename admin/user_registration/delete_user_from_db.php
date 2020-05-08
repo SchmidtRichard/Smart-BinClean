@@ -1,5 +1,13 @@
+<!--
+Richard Schmidt de Almeida
+National College of Ireland
+Bsc (Honours) in Computing - IoT Stream
+Software Project - May 2020
+Smart BinClean Project
+-->
+
 <?php
-//takes the info from monitoring_admin.php modal
+//Takes the info from monitoring_admin.php modal
 $usr = $_POST['username'];
 $email = $_POST['email'];
 
@@ -9,13 +17,13 @@ $username = "root";
 $password = "";
 $dbname = "bin";
 
-// Create connection
+//Open connectivity between PHP and DB
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-//if the field with username has been completed, it moves on
-$sql = "SELECT * FROM users WHERE username='$usr'&& email = '$email'";	
+//if the field with username and email have been completed, it moves on
+$sql = "SELECT * FROM users WHERE username='$usr'&& email = '$email'";
 $result = $conn->query($sql);
-	
+
 if ($result->num_rows != 0)
 {
 			//Delete username based on id
@@ -23,16 +31,16 @@ if ($result->num_rows != 0)
 
 		if ($conn->query($sql) === TRUE) {
 			echo '<h1>The user ' . $usr. ' has been deleted successfully!</h1>';
-				echo '<meta http-equiv="refresh" content="2; URL=/admin/monitoring_admin.php"/>';
+				echo '<meta http-equiv="refresh" content="2; URL=/admin/monitoring_admin.php"/>';//Sends back to monitoring_admin.php
 				exit;
-			}	
+			}
 }
-	
+
 else {
 			//echo "Error: " . $sql . "<br>" . $conn->error;
-			  echo "<h1><p style=\"color:red;\">The username/email adress does not exist in database!</p></h1>	
+			  echo "<h1><p style=\"color:red;\">The username/email adress does not exist in database!</p></h1>
 						Please choose another username or email adress!";
-				echo '<meta http-equiv="refresh" content="5; URL=/admin/monitoring_admin.php"/>';
+				echo '<meta http-equiv="refresh" content="5; URL=/admin/monitoring_admin.php"/>';//Sends back to monitoring_admin.php
 				exit;
 		}
 $conn->close();
