@@ -1,3 +1,11 @@
+<!--
+Richard Schmidt de Almeida
+National College of Ireland
+Bsc (Honours) in Computing - IoT Stream
+Software Project - May 2020
+Smart BinClean Project
+-->
+
 <?php
 
 //POST method to get the info sent from the modal to this page
@@ -32,7 +40,7 @@ if ($conn->query($sql) === TRUE) {
 	echo '<meta http-equiv="refresh" content="1; URL=/admin/monitoring_admin.php"/>';//Sends back to monitoring_admin.php
 	exit;
 } else {
-	//Error if bin id already exists
+	 //Error if bin id already exists
     //echo "Error: " . $sql . "<br>" . $conn->error;
 	  echo "<p style=\"color:red;\">ID already exist in database!</p>
 				<br>Please choose another ID!";
