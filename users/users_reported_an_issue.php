@@ -1,5 +1,14 @@
+<!--
+Richard Schmidt de Almeida
+National College of Ireland
+Bsc (Honours) in Computing - IoT Stream
+Software Project - May 2020
+Smart BinClean Project
+-->
+
 <?php
-//toook the data from monotoring.php modal
+
+//Take the data from monotoring.php modal
 $id = $_POST['id'];
 $issue=$_POST['issue'];
 
@@ -13,9 +22,9 @@ $dbname = "bin";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Select from DB the id in order to check if this exist
-$sql = "SELECT * FROM realtime WHERE id='$id'";	
+$sql = "SELECT * FROM realtime WHERE id='$id'";
 $result = $conn->query($sql);
-	
+
 if ($result->num_rows != 0)	 //if id exists, move on
 {
 	if ($issue) //if the issue has been completed
@@ -27,17 +36,18 @@ if ($result->num_rows != 0)	 //if id exists, move on
 			echo '<h1>Your issue for bin ' . $id. ' has reported successfully</h1>';
 			echo '<meta http-equiv="refresh" content="2; URL=/users/monitoring.php"/>';
 			exit;
-		} 
+		}
 	}
 	else // the issue missing from the field
 	{
 		echo '<h1>Please type the issue!</h1>';
+		echo '<meta http-equiv="refresh" content="3; URL=/users/monitoring.php"/>';//Redirects to monitoring.php
 		exit;
-	} 
+	}
 }
 else { //There is no id as been specified, in the DB.
     echo '<h1>The chosen bin ID ' . $id. ' is not recorded in DB!</h1>';
-	echo '<meta http-equiv="refresh" content="3; URL=/users/monitoring.php"/>';
+		echo '<meta http-equiv="refresh" content="3; URL=/users/monitoring.php"/>';//Redirects to monitoring.php
 	exit;
 }
 //close connection DB
