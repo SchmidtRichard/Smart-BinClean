@@ -66,7 +66,7 @@ Smart BinClean Project
 				</a></div>
 
 			  <!-- Button to Open the Modal -->
-			  <div class="pull-right"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete existing user</button></div>
+			  <div class="pull-right"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete Existing User</button></div>
 
 			  <!-- The Modal -->
 			  <div class="modal" id="deleteModal">
@@ -89,7 +89,7 @@ Smart BinClean Project
 			  </div>
 
 			  <!-- Button to Open the Modal -->
-			  <div class="pull-right"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#regModal">Register new user</button></div>
+			  <div class="pull-right"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#regModal">Register New User</button></div>
 
 			  <!-- The Modal -->
 			  <div class="modal" id="regModal">
