@@ -1,3 +1,11 @@
+<!--
+Richard Schmidt de Almeida
+National College of Ireland
+Bsc (Honours) in Computing - IoT Stream
+Software Project - May 2020
+Smart BinClean Project
+-->
+
 <?php
 session_start();
 ?>
@@ -39,7 +47,6 @@ if($usr && $passwd)
 		//If the password in the DB matches the one entered
 		if($passwd === $dbpassword)
 		{
-
 
 				if($admin_or_not == 'yes' )
 					{
@@ -96,6 +103,7 @@ function error()
 		$url='/';
 		echo '<META HTTP-EQUIV=REFRESH CONTENT="0; '.$url.'">';
 	}
+  
 //Close DB connection
 $conn->close();
 ?>
