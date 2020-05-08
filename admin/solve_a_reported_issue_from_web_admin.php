@@ -1,3 +1,11 @@
+<!--
+Richard Schmidt de Almeida
+National College of Ireland
+Bsc (Honours) in Computing - IoT Stream
+Software Project - May 2020
+Smart BinClean Project
+-->
+
 <?php
 
 //Takes the info from monitoring_admin.php
@@ -10,11 +18,11 @@ $username = "root";
 $password = "";
 $dbname = "bin";
 
-// Create connection
+// Open connectivity between PHP and DB
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 //Checks if id exists
-$sql = "SELECT * FROM realtime WHERE id='$id'";	
+$sql = "SELECT * FROM realtime WHERE id='$id'";
 $result = $conn->query($sql);
 
 //Checks if id exists
@@ -27,26 +35,26 @@ if ($result->num_rows != 0)
 
 		if ($conn->query($sql) === TRUE) {
 			echo '<h1>Issue at bin ' . $id. ' has been marked as been solved!</h1>';
-				echo '<meta http-equiv="refresh" content="2; URL=/admin/monitoring_admin.php"/>';
+				echo '<meta http-equiv="refresh" content="2; URL=/admin/monitoring_admin.php"/>';//Sends back to monitoring_admin.php
 				exit;
 			}
-	}	
-	
+	}
+
 	if ($issue==='no')
 	{
 			//If issue has not been address, keeps it as it is
 			echo '<h1>You\'ve specified that the issue is not solved!</h1>';
-			echo '<meta http-equiv="refresh" content="2; URL=/admin/monitoring_admin.php"/>';
+			echo '<meta http-equiv="refresh" content="2; URL=/admin/monitoring_admin.php"/>';//Sends back to monitoring_admin.php
 			exit;
 		}
-}		
+}
 
 //Error if ID does not exist
 else {
     //echo "Error: " . $sql . "<br>" . $conn->error;
-	  echo "<h1><p style=\"color:red;\">ID does not exist in database!</p></h1>	
+	  echo "<h1><p style=\"color:red;\">ID does not exist in database!</p></h1>
 				Please choose another ID!";
-		echo '<meta http-equiv="refresh" content="3; URL=/admin/monitoring_admin.php"/>';
+		echo '<meta http-equiv="refresh" content="3; URL=/admin/monitoring_admin.php"/>';//Sends back to monitoring_admin.php
 		exit;
 }
 //Close connection with DB
