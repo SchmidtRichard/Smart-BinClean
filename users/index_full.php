@@ -1,5 +1,13 @@
+<!--
+Richard Schmidt de Almeida
+National College of Ireland
+Bsc (Honours) in Computing - IoT Stream
+Software Project - May 2020
+Smart BinClean Project
+-->
+
 <?php
-////This for the user session, create a new session which will carry the info of the user authentication
+//This for the user session, create a new session which will carry the info of the user authentication
 session_start();
 
 ?>
@@ -16,7 +24,7 @@ if ($_SESSION) //Check if the session has been created previously in login.php
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home | BinSmart</title>
+    <title>Full | Smart BinClean</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
     <!-- Libraries to help create the boostrap modal -->
@@ -29,14 +37,14 @@ if ($_SESSION) //Check if the session has been created previously in login.php
 			body {
 				font-family: Arial, Helvetica, sans-serif;
 			}
-			
+
 			.navbar {
 				width: 100%;
 				text-align: center;
 				background-color: #555;
 				overflow: auto;
 			}
-			
+
 			.navbar a {
 				float: left;
 				padding: 12px;
@@ -64,7 +72,7 @@ if ($_SESSION) //Check if the session has been created previously in login.php
 				flex: 50%;
 				padding: 0 4px;
 				padding-left: 30px;
-			}	
+			}
 
 		</style>
 
@@ -74,23 +82,23 @@ if ($_SESSION) //Check if the session has been created previously in login.php
     <div class="navbar"><!-- Create the nav on the top -->
 		<div class="d-flex flex-row"><!-- arrange button on left side of top navigation menu -->
 			<a class="active" href="/users/monitoring.php">
-				<i class="fa fa-fw fa-home; glyphicon glyphicon-home"></i><b>Home</b>
+				<i class="fa fa-fw fa-home; glyphicon glyphicon-home"></i><b> Home</b>
 			</a>
 
 			<a href="/users/index_empty.php"><!-- Redicrects to empty -->
-				<i class="fa fa-fw fa-search; glyphicon glyphicon-trash"></i>Empty</b>
+				<i class="fa fa-fw fa-search; glyphicon glyphicon-trash"></i> Empty</b>
 			</a>
 
 			<a href="/users/index_half.php"><!-- Redicrects to half full -->
-				<i class="fa fa-fw fa-envelope; glyphicon glyphicon-trash"></i>Half-Full</b>
+				<i class="fa fa-fw fa-envelope; glyphicon glyphicon-trash"></i> Half-Full</b>
 			</a>
 
 			<a href="/users/index_full.php"><!-- Redicrects to full -->
-				<i class="fa fa-fw fa-user; glyphicon glyphicon-trash"></i>Full</b>
+				<i class="fa fa-fw fa-user; glyphicon glyphicon-trash"></i> Full</b>
 			</a>
-			
+
 			<div class="pull-right"><a href="/admin/user_registration/logout.php"><!-- Redicrects to logout -->
-					<i class="fa fa-fw fa-user; glyphicon glyphicon-log-out"></i>Logout</b>
+					<i class="fa fa-fw fa-user; glyphicon glyphicon-log-out"></i> Logout</b>
 				</a></div>
 		</div>
 
@@ -101,31 +109,32 @@ if ($_SESSION) //Check if the session has been created previously in login.php
 </body>
 </html>';
 
+// The necessary info to connect to the DB
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "bin";
 
-
-    // Create connection
+    //Open connectivity between PHP and DB
     $conn = new mysqli($servername, $username, $password, $dbname);
+
     // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-	$sql = "SELECT * FROM realtime WHERE image=\"full\" ORDER BY id ";
+		//Filtering only the full status bins from the DB to display in the page
+		$sql = "SELECT * FROM realtime WHERE image=\"full\" ORDER BY id ";
     $result = $conn->query($sql);
 
-
-
-	echo '<div class="column"><div class="row">';
-	echo '<table border="0" width="100%" cellspacing="0" cellpadding="0">';
+		//Arrange the bins been displayed as a matrix with rows and columsn, without borders
+		echo '<div class="column"><div class="row">';
+		echo '<table border="0" width="100%" cellspacing="0" cellpadding="0">';
 
 	$count = 0;
 
     if ($result->num_rows > 0) {
-        // output data of each row
+        //Output data of each row
         while($row = $result->fetch_assoc()) {
 			$count++;
 
@@ -149,14 +158,11 @@ $dbname = "bin";
 			echo '<p align="left">'. $date_variable .'</p></td>';
 
       //Divide the number of bins by 4 to display 4 for each row on the page
-
 			if ( ($count % 4) === 0 )
 			  {
 				 echo '</tr></div><div class="row"><tr>';
 			  }
         }
-
-
     }
 	else {
         echo "0 results";
@@ -174,10 +180,11 @@ $dbname = "bin";
 <html>
 	<head>
 		<script type="text/JavaScript">
+			//Function to refresh the page automatically every 100 seconds
 			function timedRefresh(timeoutPeriod) {
 				setTimeout("location.reload(true);",timeoutPeriod);
 			}
 		</script>
 	</head>
-	<body onload="JavaScript:timedRefresh(8000);"></body>
+	<body onload="JavaScript:timedRefresh(100000);"></body>
 </html>
