@@ -1,25 +1,21 @@
 #Richard Schmidt de Almeida
 #National College of Ireland
 #Bsc (Honours) in Computing - IoT Stream
-#Software Project - May 2020
+#May 2020
 #Smart BinClean Project
 #SmartBinClean.py
-
-#SmartBinClean.py to be executed in a RaspberryPi with a GrovePi and Ultrasonic Sensor
-#All the other files to be saved on a folder in the XAMPP directory and have Apache and MySQL started
-#MySQL to be imported to phpmyadmin in order to have the same setup on the DB side as well
 
 #Connect the Grove Ultrasonic Ranger to digital ports D2, D4, D7 and D8
 
 from grovepi import *
-import requests as req	#Import requests to be used for webqueries
+import requests as req	#import requests to be used for webqueries
 import time
 
-#Create new array for new bin(s) with diferent size(s) e.g. size3 = [90] for a bin with 90cm
-size1=[30] 				#Set 30cm size1 for the bin
-size2=[60] 				#Set 60cm size1 for the bin
+size1=[34] #Set 34cm size1 for the bin
+size2=[60] #Set 60cm size1 for the bin
 
-trash=[] #Create an empty array, where we'll add all the bins with their sizes, bin id and port number
+trash=[] #Create an empty array, where we'll add all the bins with their sizes, eg. for 2 bins: trash=[1,2,34,2,4,60]
+																						 #i from loop  0      3
 
 #####################################################################################################
 
@@ -60,47 +56,49 @@ trash.extend(trash4)	#Include trash4 to the trash array where already contains t
 
 #Function to get the readings of all the bins and use request for webqueries, it judges what is the level of rubbish inside each bin
 def judge(distant,trash_id,size):
-		
-	#Here we take the full size of the trash and set it as empty eg. for size1, measurement > 30
-	if distant >= size: 
+	
+	#We take the measure and compare if it is between 0 and 1/3 of the size of the bin | as we look at the been from the buttom to top
+	#Here we take the full size of the trash and set it as empty eg. for size1, measurement between 22 and 34
+	if ((2*size/3)<=distant) and (distant <= size):
 		print('______________________________')
 		print('The trash %d is empty.' % trash_id)
 		print(distant,'cm available')
-		
+		resp=req.get("IP/admin/update_with_raspberry.php?id=%d&image=empty" % trash_id)
 		#IP must be replaced with the IP of the network the system is setup, removed my one for obvious security reasons
-		resp=req.get("http://IP/admin/update_with_raspberry.php?id=%d&image=empty" % trash_id)
 
-	#Half to full status,once there is something in the trash
-	if distant <= size:
-		#eg. for size1, measurement < 10 - full
-		if distant <= (size/3):
-			print('______________________________')
-			print('The trash %d is full. Please collect it as there is only '% trash_id ,distant,'cm available')
-			
-			#IP must be replaced with the IP of the network the system is setup, removed my one for obvious security reasons
-			resp=req.get("http://IP/admin/update_with_raspberry.php?id=%d&image=full" % trash_id)
-		else: 
-			#eg. for size1, measurement is between 11 and 29 - half-full
+	#We take the measure and compare to be between 1/3 and 2/3 of the size of the bin
+	#for size 1 eg. if the measurement is between 11 and 22
+	if ((size/3)<distant) and (distant<(2*size/3)): # as we measure from the top to buttom of the bin
 			print('______________________________')
 			print('The trash %d is half-full.'% trash_id)
 			print(distant,'cm available')
-			
+			resp=req.get("IP/admin/update_with_raspberry.php?id=%d&image=half" % trash_id)
 			#IP must be replaced with the IP of the network the system is setup, removed my one for obvious security reasons
-			resp=req.get("http://IP/admin/update_with_raspberry.php?id=%d&image=half" % trash_id)
+	
+	#We take the measure and compare to be between 2/3 and 3/3 of the size of the bin
+	#for size 1 eg. if the measurement is between 0 and 11
+	if (0<=distant) and (distant<=(size/3)): # as we measure from the top to buttom of the bin
+			print('______________________________')
+			print('The trash %d is full. Please collect it as there is only '% trash_id ,distant,'cm available')
+			resp=req.get("IP/admin/update_with_raspberry.php?id=%d&image=full" % trash_id)
+			#IP must be replaced with the IP of the network the system is setup, removed my one for obvious security reasons
 
 #Keeps the code running to get readings
 while True:
+	
 	for i in range(0,len(trash),3): #3 represents the step index like i:0,3,6,9,12 as each trash1,2,3,4 array have 3 indexes in each
-		
-		#distant = ultrasonic Read ---> calls a function from grovepi library, 
-		#which converts the measured signals (sent and received) into readable distance measured in centimeters
+
+		#distant = ultrasonic Read ---> calls a function from grovepi library, which converts the measured signals (sent and received) into readable distance measured in centimeters
 		distant = ultrasonicRead(trash[i+1])
 		
-		#judge ---> calls a function in the python program, that judges the state of the bins and send the distance measured, bin id, and size of the bin
-		judge(distant,trash[i],trash[i+2])
-		
-		#Slow down the loop
-		time.sleep(3)	
-		
+		#Judge ---> calls a function in the python program, that judge if the state of the bin and send the distance measured, bin id, and size of the bin
+		judge(distant,trash[i],trash[i+2])#measurement, the bin id, the size of the bin goes into the def judge parameters
+	
+	#Slow down the loop
+	time.sleep(3)	
 
-		
+
+
+
+
+
