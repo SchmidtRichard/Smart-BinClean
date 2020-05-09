@@ -24,7 +24,7 @@ if ($_SESSION) //Check if the session has been created previously in login.php
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Full | Smart BinClean</title>
+    <title>Full Bins| Smart BinClean</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
     <!-- Libraries to help create the boostrap modal -->
@@ -148,7 +148,7 @@ $dbname = "bin";
 
       //Prints what is in the DB into the page for the specific ID number
 			echo '<td><img src="/images/'.$img.'.png">';
-			echo '<p align="left">Id: '. $id .'</p>';
+			echo '<p align="left">ID: '. $id .'</p>';
 			echo '<p align="left">Type: '. $type .'</p>';
 			echo '<p align="left">Address: '. $location .'</p>';
 			if ($issue)

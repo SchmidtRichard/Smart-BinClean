@@ -146,7 +146,7 @@ $dbname = "bin";
 
       //Prints what is in the DB into the page for the specific ID number
 			echo '<td><img src="/images/'.$img.'.png">';
-			echo '<p align="left">Id: '. $id .'</p>';
+			echo '<p align="left">ID: '. $id .'</p>';
 			echo '<p align="left">Type: '. $type .'</p>';
 			echo '<p align="left">Address: '. $location .'</p>';
 			if ($issue)

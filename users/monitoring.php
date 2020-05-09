@@ -24,7 +24,7 @@ if ($_SESSION) //Check if the session has been created previously in login.php
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home | BinSmart</title>
+    <title>Home | Smart BinClean</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 
@@ -139,7 +139,7 @@ $dbname = "bin";
 
     // Open connectivity between PHP and DB
     $conn = new mysqli($servername, $username, $password, $dbname);
-		
+
     // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
