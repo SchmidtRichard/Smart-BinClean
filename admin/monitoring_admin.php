@@ -229,7 +229,6 @@ if (($_SESSION)&&($_SESSION['youarelogged'])==FALSE)//Check if the session has b
 
 
 							  ID: <br><input type="text" name="id">
-							  <br><br>Solve an issue? Yes: <input type="checkbox" id="issue" name="issue" value="yes">   No:  <input type="checkbox" id="issue" name="issue" value="no">
 							  <br><br><input type="submit" name="reg" value="Submit Report"/>
 						</form>
 					</div>

@@ -7,56 +7,50 @@ Smart BinClean Project
 -->
 
 <?php
-
-//Takes the info from monitoring_admin.php
+//POST method to get the info sent from the modal to this page
 $id = $_POST['id'];
-$issue = $_POST['issue'];
 
-//Info for DB connectivity
+// The necessary info to connect to the DB
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "bin";
 
-// Open connectivity between PHP and DB
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-//Checks if id exists
-$sql = "SELECT * FROM realtime WHERE id='$id'";
-$result = $conn->query($sql);
-
-//Checks if id exists
-if ($result->num_rows != 0)
+// Create connection
+if ($id)
 {
-	if ($issue==='yes')
-	{
-	//Delete issue based on id
-		$sql = "UPDATE realtime SET issue = '' WHERE id = '$id';";
+	$conn = new mysqli($servername, $username, $password, $dbname);
 
-		if ($conn->query($sql) === TRUE) {
-			echo '<h1>Issue at bin ' . $id. ' has been marked as been solved!</h1>';
-				echo '<meta http-equiv="refresh" content="2; URL=/admin/monitoring_admin.php"/>';//Sends back to monitoring_admin.php
-				exit;
-			}
+	//Select all based on the id
+	$sql = "SELECT * FROM realtime WHERE id='$id'";
+	$result = $conn->query($sql);
+
+	if ($result->num_rows != 0)
+	{
+
+		//Delete issue based on id
+			$sql = "UPDATE realtime SET issue = '' WHERE id = '$id';";
+
+			if ($conn->query($sql) === TRUE) {
+				echo '<h1>Issue at bin ' . $id. ' has been marked as been solved!</h1>';
+					echo '<meta http-equiv="refresh" content="2; URL=/admin/monitoring_admin.php"/>';//Logs user out when trying to access a not authorized URL
+					exit;
+				}
 	}
 
-	if ($issue==='no')
-	{
-			//If issue has not been address, keeps it as it is
-			echo '<h1>You\'ve specified that the issue is not solved!</h1>';
-			echo '<meta http-equiv="refresh" content="2; URL=/admin/monitoring_admin.php"/>';//Sends back to monitoring_admin.php
+	else {
+		//echo "Error: " . $sql . "<br>" . $conn->error;
+		  echo "<h1><p style=\"color:red;\">ID does not exist in database!</p></h1>
+					Please choose another ID!";
+			echo '<meta http-equiv="refresh" content="3; URL=/admin/monitoring_admin.php"/>';//Logs user out when trying to access a not authorized URL
 			exit;
-		}
+	}
 }
-
-//Error if ID does not exist
-else {
-    //echo "Error: " . $sql . "<br>" . $conn->error;
-	  echo "<h1><p style=\"color:red;\">ID does not exist in database!</p></h1>
-				Please choose another ID!";
-		echo '<meta http-equiv="refresh" content="3; URL=/admin/monitoring_admin.php"/>';//Sends back to monitoring_admin.php
-		exit;
+else
+{
+	echo "<h1><p style=\"color:red;\">Please complete the ID field!</p></h1>";
+			echo '<meta http-equiv="refresh" content="3; URL=/admin/monitoring_admin.php"/>';//Logs user out when trying to access a not authorized URL
+			exit;
 }
-//Close connection with DB
 $conn->close();
 ?>
