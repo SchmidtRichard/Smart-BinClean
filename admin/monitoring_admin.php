@@ -315,7 +315,7 @@ if (($_SESSION)&&($_SESSION['youarelogged'])==FALSE)//Check if the session has b
 			  </div>
 		</div>
 		<h1 align="center">
-			 <font size="6">City Center Bins</font>
+			 <font size="6">All Bins</font>
 		  </h1>
 	</body>
 	</html>';
