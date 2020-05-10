@@ -1,3 +1,12 @@
+<!--
+Richard Schmidt de Almeida
+National College of Ireland
+Bsc (Honours) in Computing - IoT Stream
+Software Project - May 2020
+Smart BinClean Project
+-->
+
+
 <?php
 session_start();
 ?>
@@ -24,7 +33,7 @@ $dbname = "bin";
 //if the info has been inserted into the fields
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-	//it gets the input from the fields 
+	//it gets the input from the fields
 	$usr = $_POST["usr"];
 	$email = $_POST["email"];
 
@@ -32,21 +41,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 	{
 		//connect to DB
 		$conn = new mysqli($servername, $username, $password, $dbname);
-		
+
 		//send querry
 		$sql = "SELECT * FROM users	WHERE username='$usr'";
 		$result = $conn->query($sql);
-	
+
 		//check if the query response with username
 		if ($result->num_rows != 0)
 		{
 			$row = $result->fetch_assoc();
 
-						
+
 						$dbpassword = $row['password'];//we took the password from DB
 						$dbemail = $row['email']; //we took the email from DB
 						$pdo = null;
-				
+
 
 					if(strcmp($email, $dbemail) === 0 ) //if email from DB match with the email that user input into the html field
 					{
