@@ -128,7 +128,7 @@ if ($_SESSION) //Check if the session has been created previously in login.php
 
     </div>
     <h1 align="center">
-         <font size="6">City Center Bins</font>
+         <font size="6">All Bins</font>
       </h1>';
 
 // The necessary info to connect to the DB
