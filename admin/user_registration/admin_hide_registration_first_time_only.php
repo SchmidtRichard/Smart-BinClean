@@ -1,3 +1,10 @@
+<!--
+Richard Schmidt de Almeida
+National College of Ireland
+Bsc (Honours) in Computing - IoT Stream
+Software Project - May 2020
+Smart BinClean Project
+-->
 
 <html>
     <head>
